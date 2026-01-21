@@ -1,5 +1,5 @@
 
-# CHANGELOG.md - TM-8250 ID Guidance Controller
+# CHANGELOG.md - OpenCCVoice ID Guidance Controller
 
 本プロジェクトは、Arduino Nano (ATmega328P, 5V) 上で動作する、TM-8250系無線機の **ID送出支援**コントローラです。
 
