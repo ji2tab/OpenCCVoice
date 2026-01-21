@@ -1,7 +1,7 @@
 
 # CHANGELOG.md - OpenCCVoice ID Guidance Controller
 
-本プロジェクトは、Arduino Nano (ATmega328P, 5V) 上で動作する、TM-8250系無線機の **ID送出支援**コントローラです。
+本プロジェクトは、Arduino Nano (ATmega328P, 5V) 上で動作する、DMR無線機の **ID送出支援**コントローラです。
 
 > **記法:** Keep a Changelog 準拠  
 > **日付:** JST（日本標準時）
@@ -32,8 +32,8 @@
 
 ### Fixed
 - **burstCount 未定義によるビルドエラーを修正。**  
-- **A0フロントの有効化フラグ（USE_A0_FRONT）を明示的に 1 に設定。**
-- **HTMLエスケープ（&lt; / &gt;）残存を除去**し、Arduino IDE で確実にビルド可にした。
+- **A0フロントの有効化フラグ（USE_A0_FRONT）を明示的に 1 に設定。**  
+- **HTMLエスケープ（< / >）残存を除去**し、Arduino IDE で確実にビルド可にした。
 
 ---
 
@@ -90,7 +90,7 @@
 
 ## [v1.69e] - 2026-01-09 (AUTO Mode C)
 ### Added
-- AUTO（方式C）を初実装。D6/A0 の発生数で自動決定し固定。
+- AUTO（方式C）を初実装。D6/A0 の発生数で自動決定し固定。  
 - 固定時、D13 LED を 2Hz で 3 秒点滅。
 
 ---
@@ -105,6 +105,7 @@
 ## [v1.69b] - 2026-01-09 (Extended Limits)
 ### Added
 - 抑止ステータスLED（D13）  
+
 ### Changed
 - BUSY_MAX_MS を 2500ms へ拡張（LONG_TALK_MS と同期）
 
@@ -141,6 +142,7 @@
 ---
 
 ## 付録：ピンマップ（Arduino Nano v1.72 時点）
+
 | Pin | 機能 | 備考 |
 |:---:|:--- |:--- |
 | D2  | DFP BUSYミラー出力 | 再生中=HIGH |
