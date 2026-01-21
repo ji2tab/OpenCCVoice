@@ -118,3 +118,4 @@ PCとUSB接続し、シリアルモニタから以下のコマンドで設定を
 
 ========================================================================
 ```
+<img width="1024" height="328" alt="image" src="https://github.com/user-attachments/assets/e94e4076-a05d-41fc-ba01-60673f4769f9" />
