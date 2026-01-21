@@ -1,6 +1,6 @@
 
 /************************************************************
- * TM-8250 ID Guidance Controller
+ * OpenCCVoice ID Guidance Controller
  * Version : 1.72-final-EEPROM+F (Factory Reset対応)
  *
  * 【操作・設定ガイド】
