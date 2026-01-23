@@ -1,22 +1,12 @@
 
 OpenCCVoice/
+├── CCVoice_1_73a/
+├── bom/
+├── case/
 ├── firmware/
-│   ├── OpenCCVoice_Controller_v1.72-final-EEPROM+F/
-│   │   ├── OpenCCVoice_Controller_v1.72-final-EEPROM+F.ino
-│   │   └── build_notes.md
 │   └── old_versions/
-│       ├── v1.71-stable-final/
-│       ├── v1.69g-H1/
-│       └── v1.67c/
-├── docs/
-│   ├── README.md                 # プロジェクト概要（OpenCCVoice表記）
-│   ├── CHANGELOG.md              # v1.72-final-EEPROM+F まで反映
-│   ├── 取扱説明書_OpenCCVoice.md # 最新の整合版
-│   └── 仕様書_OpenCCVoice.md     # 最新の整合版
+├── pcb/
 ├── LICENSE
-├── README.md  # ルート用（簡略・導線用）
-├── schematic/     # 回路図 PDF/PNG
-├── board_photos/  # 実機写真
-├── bom/           # 部品表
-├── pcb/           # 部品配置図
-└── case/          # ケース
+├── README.md
+├── about us
+└── directory
