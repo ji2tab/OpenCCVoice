@@ -7,7 +7,7 @@
 
 --------------------------------------------------------------------
 
-## v1.73d — Unified/Safe + Periodic Quiet Guard (2026-01-26)
+## v1.73d — Unified/Safe + Periodic Quiet Guard (2026-01-30)
 
 ### Added
 - **周期IDの“静寂ガード”を導入（`k####` ms）**  
