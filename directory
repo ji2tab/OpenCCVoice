@@ -3,8 +3,7 @@ OpenCCVoice/
 ├── CCVoice_1_73a/
 ├── bom/
 ├── case/
-├── firmware/
-│   └── old_versions/
+├── old_firmware/
 ├── pcb/
 ├── LICENSE
 ├── README.md
