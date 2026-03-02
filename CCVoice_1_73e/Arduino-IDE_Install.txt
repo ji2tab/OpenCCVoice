@@ -1,0 +1,4 @@
+Arduino IDEインストール
+下記ページ参照ください
+https://www.sub.h-sol.jp/zakki-cho/2025/08/arduino.html
+2027/03/03 JG1XWV/ほりえ
