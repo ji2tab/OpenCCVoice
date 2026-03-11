@@ -1,7 +1,4 @@
----
-【仕様書（技術者向け）】
-OpenCCVoice Guidance Controller — v2.10
-====================
+===== 仕様書（技術者向け） OpenCCVoice Guidance Controller v2.10 =====
 
 1. 基本情報
 - 名称      : OpenCCVoice Guidance Controller
@@ -14,9 +11,7 @@ OpenCCVoice Guidance Controller — v2.10
 - EEPROM    : CONFIG_VERSION=5（v2.01=4 から rtcAlignOn フィールドを追加）
                → v2.01 設定を引き継ぎ可能
 
-====================
-2. ピンアサイン（Ver.5）
-====================
+===== 2. ピンアサイン（Ver.5） =====
 
  Pin  | 定数名              | 方向   | 信号                          | 備考
 ------|---------------------|--------|-------------------------------|----------------------------
@@ -34,9 +29,7 @@ OpenCCVoice Guidance Controller — v2.10
  A4   | —（Wire固定）        | I²C    | DS3231 SDA                    | Wire.h使用（v2.10追加）
  A5   | —（Wire固定）        | I²C    | DS3231 SCL                    | Wire.h使用（v2.10追加）
 
-====================
-3. 機能仕様（Functional）
-====================
+===== 3. 機能仕様（Functional） =====
 
 (1) 短発受信の自動ID送出（v2.01から変更なし）
   - TM BUSY（D11）または A0 の受信継続時間 dur が
@@ -92,9 +85,7 @@ OpenCCVoice Guidance Controller — v2.10
 (9) テストSW（D2）（v2.01から変更なし）
   - 1〜3クリック → Track 1〜3 再生
 
-====================
-4. 非機能仕様（Non-Functional）
-====================
+===== 4. 非機能仕様（Non-Functional） =====
 （v2.01から変更なし）
 - 応答性 : TM BUSY デバウンス 5ms
 - 安定性 : DFPlayer BUSY の HIGH確定に 40ms
@@ -104,9 +95,7 @@ OpenCCVoice Guidance Controller — v2.10
 - 安全性 : DFPlayer タイムアウト監視 / PTT張り付き防止
 - 耐久性 : EEPROM 書込みは「値変更時のみ」
 
-====================
-5. インタフェース仕様（I/O 詳細）
-====================
+===== 5. インタフェース仕様（I/O 詳細） =====
 
 【入力】
 - D2  (INPUT_PULLUP) : テストSW。LOW=押下。
@@ -126,9 +115,7 @@ OpenCCVoice Guidance Controller — v2.10
 【SoftwareSerial（DFPlayer通信）】
 - D12 (TX) / D13 (RX) : 9600bps TTLレベル（5V）。
 
-====================
-6. 既定値（Factory Defaults）
-====================
+===== 6. 既定値（Factory Defaults） =====
 （v2.01から変更なし、rtcAlignOn=1 を追加）
 - BUSY_INPUT_SOURCE           = DIGITAL（D11）
 - BUSY_MIN_MS                 = 500
@@ -148,9 +135,7 @@ OpenCCVoice Guidance Controller — v2.10
 - RTC_ALIGN_ON                = true（ON）
 - EEPROM_VER                  = 5（CONFIG_VERSION=5）
 
-====================
-7. コマンド仕様（完全）
-====================
+===== 7. コマンド仕様（完全） =====
 - m0 / m1 / m2         … BUSYソース切替（DIGITAL / A0 / AUTO）
 - n####                … 最小受信長（ms）
 - b####                … 最大受信長（ms）
@@ -174,9 +159,7 @@ OpenCCVoice Guidance Controller — v2.10
 - 0 / 1 / 2 / 3        … ログレベル（NONE / ERR / INF / DBG）
 - h                    … ヘルプ表示
 
-====================
-8. 振る舞い仕様（状態遷移 / BUSY判定）
-====================
+===== 8. 振る舞い仕様（状態遷移 / BUSY判定） =====
 （v2.01から変更なし。周期IDスケジューラのみ追記）
 
 【周期ID（RTCアライン動作）】
@@ -192,9 +175,7 @@ OpenCCVoice Guidance Controller — v2.10
 - rtcAlignActive=false の場合
 - v2.01 互換 catch-up: while(now >= nextPeriodicAt) nextPeriodicAt += PERIOD_MS
 
-====================
-9. EEPROM 仕様
-====================
+===== 9. EEPROM 仕様 =====
 
 【レイアウト（CONFIG_VERSION=5 / v2.10）】
 
@@ -222,9 +203,7 @@ OpenCCVoice Guidance Controller — v2.10
 【バージョン不一致時の自動補完値（v2.01→v2.10）】
 - rtcAlignOn        → 1（ON）
 
-====================
-10. 制約
-====================
+===== 10. 制約 =====
 - TM BUSY デバウンス 5ms（固定）
 - A0 と Digital（D11）の同時配線は禁止
 - EEPROM 書込みは「値変更時のみ」（耐久性考慮）
@@ -234,9 +213,7 @@ OpenCCVoice Guidance Controller — v2.10
 - DS3231 の T コマンドは秒単位の精度（手打ちのため数秒の誤差は許容）
 - AT24C32（モジュール上の外部EEPROM）は本バージョンでは未使用
 
-====================
-11. 試験（例）
-====================
+===== 11. 試験（例） =====
 （v2.01の試験項目に加えて以下を追加）
 
 - RTC正時アライン：p15 設定、DS3231接続
@@ -257,18 +234,13 @@ OpenCCVoice Guidance Controller — v2.10
   → 起動ログに Migration done. が出て既存設定を引き継ぐこと
   → q で EEPROM_VER=5 を確認
 
-====================
-12. リスク
-====================
+===== 12. リスク =====
 （v2.01のリスクに加えて以下を追加）
 - DS3231 のコイン電池切れ → 時刻リセット。電池交換後に T コマンドで再設定が必要。
 - T コマンドの手打ちによる秒単位の誤差（許容範囲内）
 - I²C バス上に AT24C32（0x57）が存在するが、本プログラムはアクセスしないため競合なし
 - A4/A5 を他用途に使用している旧設計との非互換
 
-====================
-13. 変更履歴
-====================
+===== 13. 変更履歴 =====
 - 詳細は CHANGELOG.md を参照
 
-====================
