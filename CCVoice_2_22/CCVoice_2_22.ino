@@ -145,6 +145,11 @@ bool extEepromWrite(uint16_t addr, const uint8_t* buf, uint16_t len) {
   return true;
 }
 
+/* =========================== Enums (前方宣言) ===================== */
+enum BusySrc { BUSY_SRC_DIGITAL, BUSY_SRC_A0, BUSY_SRC_AUTO };
+enum LogLvl  { LOG_NONE=0, LOG_ERR=1, LOG_INF=2, LOG_DBG=3 };
+volatile LogLvl LOG_LEVEL = LOG_INF;
+
 /* ============================== EEPROM ============================
  * CONFIG_VERSION 変更履歴:
  *   ver=4 : v1.73d/e, v2.01  (periodQuietMs 追加)
@@ -248,7 +253,7 @@ static void logInit() {
   h.count = 0;
   h.head  = 0;
   logWriteHeader(h);
-  if (LOG_LEVEL >= LOG_INF) Serial.println(F("[LOG] Initialized."));
+  Serial.println(F("[LOG] Initialized."));
 }
 
 // エントリ1件書き込み
@@ -375,7 +380,6 @@ void logClear() {
 }
 
 /* =========================== Runtime Params ======================= */
-enum BusySrc { BUSY_SRC_DIGITAL, BUSY_SRC_A0, BUSY_SRC_AUTO };
 volatile BusySrc BUSY_INPUT_SOURCE;
 
 bool SUPPRESSORS_ENABLED;
@@ -433,8 +437,6 @@ static bool isAlignablePeriod(uint32_t pMin) {
 unsigned long windowStartTS = 0, autoSwitchBlinkUntil = 0;
 bool autoLocked = false;
 
-enum LogLvl { LOG_NONE=0, LOG_ERR=1, LOG_INF=2, LOG_DBG=3 };
-volatile LogLvl LOG_LEVEL = LOG_INF;
 
 enum State { IDLE, PTT_ON_WAIT, PLAYING, PTT_OFF_WAIT };
 State state = IDLE;
