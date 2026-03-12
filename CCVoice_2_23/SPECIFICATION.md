@@ -2,7 +2,7 @@
 
 1. 基本情報
 - 名称      : OpenCCVoice Guidance Controller
-- バージョン : v2.23 — コンパイルエラー修正版
+- バージョン : v2.23 — TX/RX ピン修正・コンパイルエラー修正版
 - MCU       : Arduino Nano（ATmega328P, 5V）
 - 対象基板  : Ver.5
 - 依存      : Arduino.h / SoftwareSerial.h / EEPROM.h / Wire.h
@@ -134,7 +134,7 @@
 - TM_BUSY_ACTIVE_HIGH         = true（HIGH=busy）
 - periodQuietMs               = 2000ms
 - RTC_ALIGN_ON                = true（ON）
-- EEPROM_VER                  = 5（CONFIG_VERSION=5）
+- EEPROM_VER                  = 6（CONFIG_VERSION=6）
 
 **===== 7. コマンド仕様（完全） =====**
 - m0 / m1 / m2         … BUSYソース切替（DIGITAL / A0 / AUTO）
@@ -180,7 +180,7 @@
 
 **===== 9. EEPROM 仕様 =====**
 
-【レイアウト（CONFIG_VERSION=5 / v2.10）】
+【レイアウト（CONFIG_VERSION=6 / v2.23）】
 
  フィールド名        | 型       | コマンド | 説明
 ---------------------|----------|----------|-------------------------
