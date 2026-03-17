@@ -18,7 +18,7 @@
  * - 周期IDは「BUSYがOFFになってから k#### ms 静寂継続」した場合のみ送出
  *   BUSY中/静寂不足/抑止中は延期（periodicDueを保持）
  * - AUTO判定（m2）でD6/A0を観測し優位側へ固定
- * - 抑止（長話/バースト/送信後/送信直後ガード）を統合
+ * - 抑止（長話/連打/送信後/送信直後ガード）を統合
  * - PTTガード、BUSYデバウンスを実装
  * - EEPROMバージョン管理（config.ver）で自動移行/初期化
  *
@@ -58,7 +58,7 @@
  *  m0/m1/m2   BUSYソース（D6/A0/AUTO）
  *  n####      最小受信長(ms)
  *  b####      最大受信長(ms)
- *  i####      直前アイドル時間(ms) / postTxIgnore解除閾値
+ *  i####      送信後BUSY安定待ち時間(ms)（postTxIgnore解除閾値）
  *  s0/1       抑止 OFF/ON
  *  t0/1       送信後抑止 OFF/ON
  *  r####      送信後無視時間(ms)
@@ -104,7 +104,7 @@ struct MyConfig {
   uint8_t  txAfSupOn;        // [t] 0:OFF, 1:ON
   uint32_t busyMin;          // [n] 最小受信長(ms)
   uint32_t busyMax;          // [b] 最大受信長(ms)
-  uint32_t idleMin;          // [i] 直前アイドル時間(ms)
+  uint32_t idleMin;          // [i] 送信後BUSY安定待ち時間(ms)（postTxIgnore解除閾値）
   uint32_t periodMin;        // [p] 周期ID間隔（分）
   uint32_t txSupMs;          // [r] 送信後無視時間(ms)
   int      a0Low;            // [L] A0閾値LOW
@@ -153,7 +153,7 @@ const bool DFP_BUSYOUT_INVERT = true;  // D2ミラーを反転出力（再生中
 const uint8_t PIN_TEST_SW  = 3;   // D3: テストSW（INPUT_PULLUP）
 const uint8_t PIN_BUSY_LED = 4;   // D4: D6系BUSY LED
 const uint8_t PIN_PTT      = 5;   // D5: PTT出力（HIGH=送信）
-const uint8_t PIN_TM_BUSY  = 6;   // D6: TM BUSY入力（極性切替可）
+const uint8_t PIN_TM_BUSY  = 6;   // D6: 受信BUSY信号入力（TM BUSY、極性切替可）
 const uint8_t PIN_DFP_BSY  = 7;   // D7: DFPlayer BUSY入力（LOW=再生中）
 const uint8_t PIN_DFP_OUT  = 2;   // D2: DFPlayer BUSYミラー出力（反転）
 const uint8_t PIN_SUP_LED  = 13;  // D13: 抑止/AUTO通知LED
@@ -170,9 +170,9 @@ const unsigned long DEBOUNCE_MS  = 5;      // D6デバウンス(ms)
 const unsigned long PTT_PRE_MS   = 1000;   // 再生前PTT先行時間(ms)
 const unsigned long PTT_POST_MS  = 1000;   // 再生後PTT保持時間(ms)
 const unsigned long LONG_SUP_MS  = 10000;  // 長話抑止時間(ms)
-const unsigned long BURST_WIN_MS = 10000;  // バースト検出窓(ms)
-const unsigned int  BURST_TH     = 2;      // バースト閾値（回数）
-const unsigned long BURST_SUP_MS = 10000;  // バースト抑止時間(ms)
+const unsigned long BURST_WIN_MS = 10000;  // 連打検出窓(ms)
+const unsigned int  BURST_TH     = 2;      // 連打閾値（回数）
+const unsigned long BURST_SUP_MS = 10000;  // 連打抑止時間(ms)
 
 /* ============================ State / Vars ============================ */
 unsigned long windowStartTS = 0;          // AUTO観測窓の開始時刻
@@ -210,8 +210,8 @@ uint16_t nextPeriodicTrack=2;    // 次回周期IDトラック（2/3交互）
 // 抑止タイマー
 unsigned long busySupUntil=0;    // 送信後抑止の終了時刻
 unsigned long longSupUntil=0;    // 長話抑止の終了時刻
-unsigned long burstWinStart=0;   // バースト検出窓の開始時刻
-unsigned long burstSupUntil=0;   // バースト抑止の終了時刻
+unsigned long burstWinStart=0;   // 連打検出窓の開始時刻
+unsigned long burstSupUntil=0;   // 連打抑止の終了時刻
 unsigned long busyHighSince=0;   // DFPlayer BUSY HIGH確定待ち開始時刻
 unsigned long playingEnterAt=0;  // PLAYING状態突入時刻（タイムアウト用）
 
@@ -221,7 +221,7 @@ uint8_t  lastSwState=HIGH;       // 前回のSW状態
 unsigned long firstClickTime=0;  // 最初のクリック時刻
 
 // AUTO判定カウンタ
-unsigned int  burstCount = 0;    // バースト抑止用短発カウンタ
+unsigned int  burstCount = 0;    // 連打抑止用短発カウンタ
 uint16_t d6_edge_count = 0;      // D6エッジ検出数（AUTO判定用）
 uint16_t a0_event_count = 0;     // A0イベント検出数（AUTO判定用）
 
@@ -230,7 +230,7 @@ unsigned long lastBusyOffAt = 0; // 最後にBUSYがOFFになった時刻（周�
 
 // 送信直後ガード（v1.73e）
 bool postTxIgnore = false;          // 送信直後の誤発火防止フラグ
-unsigned long postTxIdleStart = 0;  // postTxIgnore解除用アイドル計測開始時刻
+unsigned long postTxIdleStart = 0;  // 送信直後ガード解除用BUSY安定計測開始時刻
 
 /* ============================== Utils ================================= */
 inline bool readTmRaw() { return (digitalRead(PIN_TM_BUSY) == HIGH); }
@@ -281,7 +281,7 @@ void startPtt(uint16_t trk) {
  * 以下のいずれかが true なら抑止中とみなす：
  *   - postTxIgnore     : 送信直後ガード（v1.73e）
  *   - longSupUntil     : 長話抑止中
- *   - burstSupUntil    : バースト抑止中
+ *   - burstSupUntil    : 連打抑止中
  *   - busySupUntil     : 送信後抑止中
  * SUPPRESSORS_ENABLED=false の場合、postTxIgnoreのみ有効。
  */
@@ -643,7 +643,7 @@ void updateLEDs(unsigned long now, bool rB) {
  * processBusyLogic()：受信長を判定し、短発ID送出・各種抑止タイマーを管理する。
  *
  * 長話抑止：dur >= BUSY_MAX_MS → LONG_SUP_MS(10s) 抑止
- * バースト抑止：10s窓内に短発2回以上 → BURST_SUP_MS(10s) 抑止
+ * 連打抑止：10s窓内に短発2回以上 → BURST_SUP_MS(10s) 抑止
  * 短発ID送出：BUSY_MIN_MS <= dur < BUSY_MAX_MS かつ不応期外かつ抑止外
  */
 void processBusyLogic(unsigned long now, bool pAct, bool rB) {
