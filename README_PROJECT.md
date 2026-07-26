@@ -51,7 +51,7 @@ OpenCCVoice はアマチュア無線の精神に基づき、以下の理念を�
 ### ライセンスと権利について
 公開予定の回路図、Arduino スケッチ、基板データ、関連ドキュメントの著作権は **JA2CCV 局および OpenCCVoice プロジェクト** に帰属します。
 
-OpenCCVoice は、技術共有と発展を目的としたオープンプロジェクトであり、公開物は **オープンソースライセンス（GPL v3 の理念に準拠）** のもとで取り扱われます。
+OpenCCVoice は、技術共有と発展を目的としたオープンプロジェクトであり、公開物はファイルの種類に応じて次のライセンスのもとで取り扱われます。**ハードウェア（回路図・基板データ・BOM・ケース）は CERN-OHL-S v2**、**ソフトウェア（Arduino スケッチ）は GPL v3** です。
 
 #### 1. 利用と改変について
 * どなたでも **自由に利用** できます。
@@ -66,7 +66,7 @@ OpenCCVoice は、技術共有と発展を目的としたオープンプロジ�
     * ブラックボックス化せず、ソースコード・回路図・基板データ等を公開してください。
 
 #### 3. ライセンス文書について
-正式な LICENSE（GPL v3）文書は、回路図・ソフトウェア・基板データ公開時に同梱されます。
+正式なライセンス文書はリポジトリに同梱されています。ハードウェアは `LICENSE-HARDWARE.txt`（CERN-OHL-S v2）、ソフトウェアは `LICENSE`（GPL v3）を参照してください。
 
 OpenCCVoice が多くの局とともに発展していくことを願っています。
 
@@ -82,7 +82,7 @@ OpenCCVoice が多くの局とともに発展していくことを願ってい�
     * 送信間隔、送出内容、変調レベルなどが法的基準を満たしているか、利用者の責任において確認・調整してください。
     * 本装置の使用による法令違反について、製作者は一切関知しません。
 4.  **ライセンス**
-    本プロジェクトは **GPL v3 (GNU General Public License v3)** の下で公開されています。再配布や改変に関する条件はライセンス条項に従ってください。
+    本プロジェクトのハードウェアは **CERN-OHL-S v2 (CERN Open Hardware Licence Version 2 - Strongly Reciprocal)**、ソフトウェアは **GPL v3 (GNU General Public License v3)** の下で公開されています。再配布や改変に関する条件は、それぞれのライセンス条項に従ってください。
 
 ---
 
@@ -133,7 +133,7 @@ The name **"OpenCCVoice"** was chosen to symbolize this philosophy.
 ### License and Rights
 The copyright of the schematics, Arduino sketches, PCB data, and related documentation belongs to **JA2CCV and the OpenCCVoice Project**.
 
-OpenCCVoice is an open project aimed at technology sharing and development. All published materials are handled under **Open Source Licenses (compliant with GPL v3 principles)**.
+OpenCCVoice is an open project aimed at technology sharing and development. Published materials are handled under different licenses depending on the file type: **hardware (schematics, PCB data, BOM, case) is licensed under CERN-OHL-S v2**, and **software (Arduino sketches) is licensed under GPL v3**.
 
 #### 1. Usage and Modification
 * Anyone is **free to use** this project.
@@ -148,7 +148,7 @@ When publishing or distributing modified versions or derivatives, you must obser
     * Do not "black box" the project; you must publish the source code, schematics, and PCB data.
 
 #### 3. About License Documents
-The official LICENSE (GPL v3) document will be included with the release of schematics, software, and PCB data.
+The official license documents are included in the repository: see `LICENSE-HARDWARE.txt` (CERN-OHL-S v2) for hardware, and `LICENSE` (GPL v3) for software.
 
 We hope that OpenCCVoice will continue to grow together with many stations.
 
@@ -165,7 +165,7 @@ Please read the following terms carefully before using the hardware designs (sch
     * It is the user's responsibility to ensure that transmission intervals, audio levels, and operation methods comply with local legal requirements.
     * The authors assume no responsibility for any legal violations committed by the user.
 4.  **License**
-    This project is released under the **GNU General Public License v3 (GPL v3)**. Please refer to the license for terms regarding redistribution and modification.
+    The hardware of this project is released under the **CERN-OHL-S v2 (CERN Open Hardware Licence Version 2 - Strongly Reciprocal)**, and the software under the **GNU General Public License v3 (GPL v3)**. Please refer to each license for terms regarding redistribution and modification.
 
 ---
 **Project Contributors:** JA2CCV, JA9HYM, JA2DML, JG1XWV, JI2TAB
