@@ -169,3 +169,29 @@ Please read the following terms carefully before using the hardware designs (sch
 
 ---
 **Project Contributors:** JA2CCV, JA9HYM, JA2DML, JG1XWV, JI2TAB
+
+
+---
+
+## ライセンス構成 / License Structure
+
+本プロジェクトは、ファイルの種類によって適用されるライセンスが異なります。
+This project applies different licenses depending on the type of file.
+
+### ハードウェア / Hardware
+回路図、PCB基板データ、BOM（部品表）、ケースデータ
+（対象ディレクトリ: `circuit/`, `pcb/`, `bom/`, `case/`）
+
+**CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S v2)**
+→ `LICENSE-HARDWARE.txt` を参照 / See `LICENSE-HARDWARE.txt`
+
+### ソフトウェア / Software
+Arduino スケッチ等のソースコード
+（例: `CCVoice_*/`, `old_firmware/`, `DMR Arduino ID V4-2/`）
+
+**GNU General Public License v3.0 (GPL-3.0)**
+→ `LICENSE` を参照 / See `LICENSE`
+
+> 上記の記述と本 README 中の他のライセンス記述が矛盾する場合は、本「ライセンス構成」セクションが優先されます。
+> > In case of conflict between this section and other license descriptions in this README, this "License Structure" section takes precedence.
+> > 
