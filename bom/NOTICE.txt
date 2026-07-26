@@ -1,0 +1,22 @@
+OpenCCVoice - Hardware Design Files (BOM / bill of materials)
+
+Copyright 2026 JA2CCV / OpenCCVoice Project
+
+The files in this directory (bill of materials / parts lists, including the
+spreadsheet files) describe Open Hardware and are licensed under the
+CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S v2).
+
+You may redistribute and modify these files and make products using them
+under the terms of the CERN-OHL-S v2 (https://ohwr.org/cern_ohl_s_v2.txt).
+A copy of the licence is included in the repository root as
+LICENSE-HARDWARE.txt.
+
+These files are distributed WITHOUT ANY EXPRESS OR IMPLIED WARRANTY,
+INCLUDING OF MERCHANTABILITY, SATISFACTORY QUALITY AND FITNESS FOR A
+PARTICULAR PURPOSE. Please see the CERN-OHL-S v2 for applicable conditions.
+
+Source location: https://github.com/ji2tab/OpenCCVoice
+
+Note: The software/firmware (Arduino sketches) in this project is licensed
+separately under the GNU General Public License v3.0 (GPL-3.0). See the
+LICENSE file and README for details.
